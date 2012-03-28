@@ -41,9 +41,17 @@ var pi = function(){
 
 $(document).ready(function(){
 
+    var screen_width = $(window).width();
+    var screen_height = $(window).height();
+
     var animation = new Animation({
         mover: "#mover"
     });
+
+    var mouse = new Mouse({
+        "selector": "#display_canvas"
+    });
+    mouse.start_measuring();
 
     var timeline = new Timeline({
         tickrate: 10,

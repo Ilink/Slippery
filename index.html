@@ -4,6 +4,9 @@
 <head>
     <title>Slippery!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="lib/sylvester.src.js"></script>
+    <script src="lib/numeric-1.0.2.js"></script>
+    <script src="mouse.js"></script>
     <script src="time.js"></script>
     <script src="main.js"></script>
 
@@ -14,6 +17,12 @@
     <div id="display">
         <div id="mover">(X)</div>
     </div>
+
+    <div>velocity: <span id="vel"></span></div>
+    <div>old pos: <span id="old_pos"></span></div>
+    <div>current pos: <span id="pos"></span></div>
+    <canvas id="display_canvas" width="200px" height="200px"></canvas>
+
     <div><a id="start">Start</a></div>
     <div><a id="stop">Stop</a></div>
 
