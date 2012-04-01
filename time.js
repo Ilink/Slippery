@@ -15,7 +15,7 @@ var Timeline = function(args){
             time_end = new Date();
             dt = time_end - time_start;
             if(dt < 1) dt = dt_floor;
-            else console.log(dt);
+//            else console.log(dt);
             loop(dt);
         }, tickrate);
     }
