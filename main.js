@@ -39,6 +39,17 @@ var pi = function(){
     }
 }
 
+var simple_interaction = function(canvas, bodies){
+    $(canvas).click(function(e){
+        var x = e.offsetX;
+        var y = e.offsetY;
+        bodies.push({
+            x: x,
+            y: y
+        });
+    });
+}
+
 $(document).ready(function(){
 
     var screen_width = $(window).width();
@@ -53,12 +64,27 @@ $(document).ready(function(){
     });
     mouse.start_measuring();
 
+    var bodies = [];
+
+    var solver = new Solver({
+        velocity: 0.5
+    });
+
+
+    simple_interaction("#display_canvas", bodies);
+
+    var display = new Display({
+        'canvas': "#display_canvas"
+    });
+
     var timeline = new Timeline({
         tickrate: 10,
         callback: function(dt){ // render loop goes here
-            animation.sin(dt);
-
-            pi();
+//            animation.sin(dt);
+            solver.tick(dt, bodies);
+            display.render(bodies);
+            console.log(bodies);
+//            pi();
         }
     });
 
