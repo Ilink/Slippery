@@ -83,7 +83,7 @@ $(document).ready(function(){
 //            animation.sin(dt);
             solver.tick(dt, bodies);
             display.render(bodies);
-            console.log(bodies);
+//            console.log(bodies);
 //            pi();
         }
     });
@@ -94,5 +94,10 @@ $(document).ready(function(){
 
     $("#stop").click(function(){
         timeline.stop();
-    })
+    });
+
+    var fluid = new Fluid({
+        size: 100
+    });
+
 });
