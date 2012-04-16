@@ -4,6 +4,7 @@ Fluid_helpers.prototype.project = function(){
 
 }
 
+// todo:remove boundary conditions
 Fluid_helpers.prototype.set_boundary = function(size, bound, matrix){
     for (var i=1; i <= size; i++ ) {
         matrix[0][i] = (b==1) ? -matrix[1][i] : matrix[1][i];
