@@ -4,7 +4,7 @@ Fluid_helpers.prototype.project = function(){
 
 }
 
-// todo:remove boundary conditions
+// todo: create a strategy pattern for various boundary condition types
 Fluid_helpers.prototype.set_boundary = function(size, bound, matrix){
     for (var i=1; i <= size; i++ ) {
         matrix[0][i] = (b==1) ? -matrix[1][i] : matrix[1][i];
@@ -16,4 +16,26 @@ Fluid_helpers.prototype.set_boundary = function(size, bound, matrix){
     matrix[0][size+1] = 0.5*(matrix[i][size+1]+ matrix[0][size]);
     matrix[size+1][0] = 0.5*(matrix[size][0]+matrix[size+1][1]);
     matrix[size+1][size+1] = 0.5*(matrix[size][size+1]+matrix[size+1][size]);
+}
+
+Fluid_helpers.prototype.infinite_boundary = function(size, bound, matrix){
+    /*
+    Not sure how to do this yet..
+    if something touches the boundary
+        move to other side
+     */
+}
+
+/*
+    Usage:
+
+    a = 1; b = 2;
+    result = swap(a,b);
+    a = result[0]; b = result[1];
+ */
+Fluid_helpers.prototype.swap = function(a, b){
+    var temp = a;
+    a = b;
+    b = temp;
+    return [a, b]
 }
