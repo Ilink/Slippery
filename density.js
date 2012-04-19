@@ -18,26 +18,11 @@ var Density = function(args){
         }
     }
 
-    // u and v are velocity fields in the x and y directions, respectively
-    // remember velocity is a vector quantitity!
-    var advect = function(size, bound, dens, dens0, u, v, dt){
-        var i, j, i0, j0, i1, j1, x, y, s0, t0, s1, t1, dt0;
-        dt0 = dt * size;
-        for (i=1; i<=size; i++) {
-            for (j=1; j<=size; j++) {
-                x = i - dt0 * u[i][j];
-                y = j - dt0 * v[i][j];
-                if (x<0.5) x=0.5; if (x>N+0.5) x=N+0.5; i0=(int)x; i1=i0+1; if (y<0.5) y=0.5; if (y>N+0.5) y=N+0.5; j0=(int)y; j1=j0+1; s1 = x-i0; s0 = 1-s1; t1 = y-j0; t0 = 1-t1;
-                d[IX(i,j)] = s0*(t0*d0[IX(i0,j0)]+t1*d0[IX(i0,j1)])+
-                    s1*(t0*d0[IX(i1,j0)]+t1*d 0[IX(i1,j1)]);
-            } }
-        self.set_boundary ( N, b, d );
-    }
-
     this.step = function(dens, u, v){
         diffuse();
-        advect();
+        self.advect();
     }
 }
 
-Density.prototype.set_boundary = Fluid_helpers.prototype.set_boundary;
+Density.prototype.set_boundary = Fluid_core.prototype.set_boundary;
+Density.prototype.advect = Fluid_core.prototype.advect;
