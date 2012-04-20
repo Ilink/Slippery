@@ -8,4 +8,5 @@ var Velocity = function(args){
 
     }
 }
-Density.prototype.advect = Fluid_core.prototype.advect;
+Velocity.prototype.advect = Fluid_core.prototype.advect;
+Velocity.prototype.swap = Util.prototype.swap;

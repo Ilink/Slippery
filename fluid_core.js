@@ -6,10 +6,6 @@ This function contains functionality that is shared across the various parts of 
 
 var Fluid_core = function(){}
 
-Fluid_core.prototype.project = function(){
-
-}
-
 // todo: create a strategy pattern for various boundary condition types
 Fluid_core.prototype.set_boundary = function(size, bound, matrix){
     for (var i=1; i <= size; i++ ) {
@@ -59,18 +55,4 @@ Fluid_core.prototype.advect = function(size, bound, dens, dens0, u, v, dt){
         }
     }
     self.set_boundary ( N, b, d );
-}
-
-/*
-    Usage:
-
-    a = 1; b = 2;
-    result = swap(a,b);
-    a = result[0]; b = result[1];
- */
-Fluid_core.prototype.swap = function(a, b){
-    var temp = a;
-    a = b;
-    b = temp;
-    return [a, b]
 }

@@ -26,3 +26,4 @@ var Density = function(args){
 
 Density.prototype.set_boundary = Fluid_core.prototype.set_boundary;
 Density.prototype.advect = Fluid_core.prototype.advect;
+Density.prototype.swap = Util.prototype.swap;
