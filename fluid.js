@@ -7,17 +7,10 @@ var Fluid = function(args){
     size = args.size;
     this.init_2d_arr(size, dens);
 
-    var velocity = new Velocity();
-    var density = new Density();
+    var velocity = new Velocity({size: size});
+    var density = new Density({size: size});
 
-    this.add_density = function(new_dens, dt){
-        for (var i = 0 ; i < size; i++) {
-            for(var j = 0; j < size; j++){
-                dens[i][j] += dt * new_dens[i][j]; // why does this need to be scaled by time?
-                // i guess it doesn't, but it makes it more representative of how much density was added over a time period
-            }
-        }
-    }
+
 
     this.solve = function(){
         // main steps go here
@@ -27,6 +20,6 @@ var Fluid = function(args){
     }
 }
 
-Fluid.prototype.init_2d_arr = Helpers.prototype.init_2d_arr;
+Fluid.prototype.init_2d_arr = Util.prototype.init_2d_arr;
 
 
