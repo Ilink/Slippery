@@ -5,11 +5,7 @@ var Util = function(){};
     objects and arrays muat have the same number of elements / properties
     objects must have the same property names
 
-    Usage:
-
-    a = 1; b = 2;
-    result = swap(a,b);
-    a = result[0]; b = result[1];
+    numbers cannot be swaped in-place since they are never passed by reference
 */
 Util.prototype.swap = function(a, b) {
     var temp;
