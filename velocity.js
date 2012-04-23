@@ -1,6 +1,6 @@
 var Velocity = function(args){
     var self = this;
-
+    var size = args.size;
     // wtf are p and div
     // they're both arrays, are they densities?
 
@@ -13,7 +13,7 @@ var Velocity = function(args){
     to find height field we use Poisson equation
      */
 
-    var project = function(size, u, v, p, div){
+    var project = function(u, v, p, div){
         var i, j, k, h
 
         h = 1.0 / size;
@@ -45,15 +45,15 @@ var Velocity = function(args){
     }
 
     // draw out these steps, with the swaps
-    this.step = function(size, u, v, u0, v0, visc, dt){
+    this.step = function(u, v, u0, v0, visc, dt){
         self.increase(size, u, u0, dt);
         self.increase(size, v, v0, dt);
         self.swap(u, u0); self.diffuse(size, 1, u, u0, visc, dt);
         self.swap(v, v0); self.diffuse(size, 2, v, v0, visc, dt);
-        project(size, u, v, u0, v0);
+        project(u, v, u0, v0);
         self.swap(u, u0); self.swap(v, v0);
         self.advect(size, 1, u, u0, u0, v0, dt); self.advect(size, 1, v, v0, u0, v0, dt); // self-advection along each velocity vector
-        project(size, u, v, u0, v0);
+        project(u, v, u0, v0);
     }
 }
 Velocity.prototype.advect = Fluid_core.prototype.advect;

@@ -35,3 +35,18 @@ Util.prototype.init_2d_arr = function(size, arr){
     }
     return arr;
 }
+
+Util.prototype.zero_2d = function(args){
+    $.each(args, function(i, arr){
+        $.each(arr, function(j, x){
+            $.each(x, function(j){
+                x[j] = 0;
+            });
+        });
+    });
+}
+
+Util.prototype.copy = function(original){
+    if(typeof original.length !== 'undefined') return $.extend(true, [], original);
+    else return $.extend(true, {}, original);
+}

@@ -49,11 +49,11 @@ Fluid_core.prototype.advect = function(size, bound, field, field0, u, v, dt){
             if (x<0.5) x=0.5; if (x>size+0.5) x=size+0.5; i0 = Math.round(x); i1=i0+1;
             if (y<0.5) y=0.5; if (y>size+0.5) y=size+0.5; j0 = Math.round(y); j1=j0+1;
 
-            //i forget what this is doing
+            // i forget what this is doing
             s1 = x-i0; s0 = 1-s1;
             t1 = y-j0; t0 = 1-t1;
 
-            // carry over the fieldities
+            // carry over the values (densities, velocities)
             field[i][j] = s0 * (t0*field0[i0][j0] + t1*field0[i0][j1])+
                       s1 * (t0*field0[i1][j0] + t1*field0[i1][j1]);
         }
