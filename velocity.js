@@ -58,5 +58,6 @@ var Velocity = function(args){
 }
 Velocity.prototype.advect = Fluid_core.prototype.advect;
 Velocity.prototype.diffuse = Fluid_core.prototype.diffuse;
+Velocity.prototype.increase = Fluid_core.prototype.increase;
 Velocity.prototype.swap = Util.prototype.swap;
 Velocity.prototype.set_boundary = Util.prototype.set_boundary;

@@ -1,21 +1,18 @@
 var Fluid = function(args){
     var self = this;
-    var size, dim, dens, dens0, u, v, u0, v0, visc;
-    dens = [], dens0 = [], u = [], v = [];
+    var size, dim, dens, dens0, u, v, u0, v0, visc, diff;
+    dens = [], dens0 = [], u = [], v = [], v0 = [], u0 = [];
     dim = (args.size + 2) * (args.size + 2);
     size = args.size;
-    this.init_2d_arr(size, dens);
-    this.init_2d_arr(size, u);
-    this.init_2d_arr(size, v);
-    v0 = v; u0 = u;
+
+    visc = 1;
 
     var velocity = new Velocity({size: size});
     var density = new Density({size: size});
 
     var solve = function(dens0, u0, v0, dt){
         velocity.step(u, v, u0, v0, visc, dt);
-        density.step();
-        v0 = v; u0 = u;
+        density.step(u, v, dens, dens0, diff, dt);
         return dens; // i think? the renderer will handle it just fine
     }
 
@@ -26,7 +23,12 @@ var Fluid = function(args){
     }
 
     this.reset = function(){
-        self.zero_2d([u, u0, v, v0, dens, dens0]);
+        this.init_2d_arr(size, dens);
+        this.init_2d_arr(size, dens0);
+        this.init_2d_arr(size, u);
+        this.init_2d_arr(size, u0);
+        this.init_2d_arr(size, v);
+        this.init_2d_arr(size, v0);
     }
     this.reset();
 

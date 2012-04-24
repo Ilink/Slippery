@@ -70,6 +70,9 @@ $(document).ready(function(){
         velocity: 0.5
     });
 
+    var fluid = new Fluid({
+        size: 100
+    });
 
     simple_interaction("#display_canvas", bodies);
 
@@ -80,11 +83,8 @@ $(document).ready(function(){
     var timeline = new Timeline({
         tickrate: 10,
         callback: function(dt){ // render loop goes here
-//            animation.sin(dt);
-            solver.tick(dt, bodies);
+            fluid.tick(dt);
             display.render(bodies);
-//            console.log(bodies);
-//            pi();
         }
     });
 
@@ -94,10 +94,6 @@ $(document).ready(function(){
 
     $("#stop").click(function(){
         timeline.stop();
-    });
-
-    var fluid = new Fluid({
-        size: 100
     });
 
 });

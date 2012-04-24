@@ -31,17 +31,15 @@ Util.prototype.swap = function(a, b) {
 
 Util.prototype.init_2d_arr = function(size, arr){
     for(var i = 0; i < size; i++){
-        arr[i] = [];
+        arr[i] = [0,0];
     }
     return arr;
 }
 
-Util.prototype.zero_2d = function(args){
-    $.each(args, function(i, arr){
-        $.each(arr, function(j, x){
-            $.each(x, function(j){
-                x[j] = 0;
-            });
+Util.prototype.zero_2d = function(arr){
+    $.each(arr, function(j, x){
+        $.each(x, function(j){
+            x[j] = 0;
         });
     });
 }

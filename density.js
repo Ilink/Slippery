@@ -4,12 +4,12 @@ var Density = function(args){
 
     // x is density
     // u, v are velocity vectors
-    this.step = function(x, x0, u, v, diff, dt){
+    this.step = function(u, v, x, x0, diff, dt){
         self.increase(size, x, x0, dt);
         self.swap(x, x0);
-        self.diffuse();
+        self.diffuse(size, 1, x, x0, diff, dt);
         self.swap(x, x0);
-        self.advect();
+        self.advect(size, 1, x, x0, u, v, dt);
     }
 }
 
