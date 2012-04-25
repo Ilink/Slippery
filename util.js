@@ -31,7 +31,10 @@ Util.prototype.swap = function(a, b) {
 
 Util.prototype.init_2d_arr = function(size, arr){
     for(var i = 0; i < size; i++){
-        arr[i] = [0,0];
+        arr[i] = [];
+        for(var j = 0; j < size; j++){
+            arr[i][j] = 0;
+        }
     }
     return arr;
 }

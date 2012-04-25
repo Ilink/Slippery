@@ -50,7 +50,24 @@ var simple_interaction = function(canvas, bodies){
     });
 }
 
+var render_numbers = function(selector, arr){
+    var size = arr.length;
+    selector = $(selector);
+    for(var i = 0; i < size; i++){
+        for(var j = 0; j < size; j++){
+            selector.append(arr[i][j]);
+        }
+        selector.append('<br/>')
+    }
+}
+
 $(document).ready(function(){
+
+    var size = 10;
+    var mock_dens = [];
+    mock_dens = Util.prototype.init_2d_arr(size, mock_dens);
+    mock_dens[0][5] = 5;
+    console.log(mock_dens);
 
     var screen_width = $(window).width();
     var screen_height = $(window).height();
@@ -71,7 +88,7 @@ $(document).ready(function(){
     });
 
     var fluid = new Fluid({
-        size: 100
+        "size": size
     });
 
     simple_interaction("#display_canvas", bodies);
@@ -83,8 +100,9 @@ $(document).ready(function(){
     var timeline = new Timeline({
         tickrate: 10,
         callback: function(dt){ // render loop goes here
+            fluid.add_density(mock_dens);
             fluid.tick(dt);
-            display.render(bodies);
+            render_numbers("#container", fluid.get_dens());
         }
     });
 

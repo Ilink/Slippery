@@ -32,7 +32,12 @@ var Fluid = function(args){
     }
     this.reset();
 
-    this.add_density = function(){
+    this.add_density = function(new_dens){
+        for(var i = 0; i < size; i++){
+            for(var j = 0; j < size; j++){
+                dens[i][j] += new_dens[i][j];
+            }
+        }
         // this should be pretty easy
         // does it need to be scaled by time like add_source?
     }
@@ -40,6 +45,10 @@ var Fluid = function(args){
     this.add_velocity = function(){
         // idk, add velocity to u and v here
         // add helpers to make it easier to produce u and v values from velocity
+    }
+
+    this.get_dens = function(){
+        return dens;
     }
 }
 
