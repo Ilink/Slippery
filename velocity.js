@@ -15,7 +15,7 @@ var Velocity = function(args){
 
     var project = function(u, v, p, div){
         var i, j, k, h
-
+        size = size -2;
         h = 1.0 / size;
         for ( i=1 ; i<=size ; i++ ) {
             for ( j=1 ; j<=size ; j++ ) {

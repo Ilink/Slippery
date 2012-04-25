@@ -16,7 +16,7 @@ Fluid_core.prototype.set_boundary = function(size, bound, matrix){
     }
     // corner cases (literally)
     matrix[0][0] = 0.5*(matrix[1][0] + matrix[0][1]);
-    matrix[0][size-1] = 0.5*(matrix[i][size-1]+ matrix[0][size-1]);
+//    matrix[0][size-1] = 0.5*(matrix[i][size-1]+ matrix[0][size-1]);
     matrix[size-1][0] = 0.5*(matrix[size-1][0]+matrix[size-1][1]);
     matrix[size-1][size-1] = 0.5*(matrix[size-1][size-1]+matrix[size-1][size-1]);
 }
@@ -81,15 +81,14 @@ Fluid_core.prototype.increase = function(size, dens, new_dens, dt){
 }
 
 Fluid_core.prototype.diffuse = function(size, bound, dens, dens0, rate, dt){
-    var a = dt * rate * size;
-//    var a = dt * rate * size * size;
+//    var a = dt * rate * size;
+    var a = dt * rate * size * size;
     for (var k = 0; k < 20; k++ ) {
-        for (var i = 1; i< size; i++ ) {
-            for (var j = 1; j < size; j++ ) {
-                console.log(dens[i][j],i, j, dens[10])
+        for (var i = 1; i < size-1; i++ ) {
+            for (var j = 1; j < size-1; j++ ) {
                 // i think it is using the previous density (d0) because this process is iterative (see outermost loop)
                 // could dens0 be part of the function instead of an argument?
-//                dens[i][j] = (dens0[i][j] + a * (dens[i-1][j] + dens[i+1][j] + dens[i][j-1] + dens[i][j+1])) / (1 + 4 * a);
+                dens[i][j] = (dens0[i][j] + a * (dens[i-1][j] + dens[i+1][j] + dens[i][j-1] + dens[i][j+1])) / (1 + 4 * a);
             }
         }
         Fluid_core.prototype.set_boundary (size, bound, dens);
