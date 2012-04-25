@@ -2,17 +2,23 @@ var Fluid = function(args){
     var self = this;
     var size, dim, dens, dens0, u, v, u0, v0, visc, diff;
     dens = [], dens0 = [], u = [], v = [], v0 = [], u0 = [];
+    diff = 2;
+    visc = 2;
     dim = (args.size + 2) * (args.size + 2);
-    size = args.size;
+    var N = args.size;
+    size = args.size + 2;
 
     visc = 1;
 
-    var velocity = new Velocity({size: size});
-    var density = new Density({size: size});
+    var velocity = new Velocity({size: N});
+    var density = new Density({size: N});
 
     var solve = function(dens0, u0, v0, dt){
+//        console.log('dens before vel', dens0);
         velocity.step(u, v, u0, v0, visc, dt);
+//        console.log('dens after vel', dens0);
         density.step(u, v, dens, dens0, diff, dt);
+        console.log('dens after dens', dens);
         return dens; // i think? the renderer will handle it just fine
     }
 
@@ -42,7 +48,13 @@ var Fluid = function(args){
         // does it need to be scaled by time like add_source?
     }
 
-    this.add_velocity = function(){
+    this.add_velocity = function(new_u, new_v){
+        for(var i = 0; i < size; i++){
+            for(var j = 0; j < size; j++){
+                u[i][j] += new_u[i][j];
+                v[i][j] += new_v[i][j];
+            }
+        }
         // idk, add velocity to u and v here
         // add helpers to make it easier to produce u and v values from velocity
     }

@@ -52,7 +52,8 @@ var Velocity = function(args){
         self.swap(v, v0); self.diffuse(size, 2, v, v0, visc, dt);
         project(u, v, u0, v0);
         self.swap(u, u0); self.swap(v, v0);
-        self.advect(size, 1, u, u0, u0, v0, dt); self.advect(size, 1, v, v0, u0, v0, dt); // self-advection along each velocity vector
+        self.advect(size, 1, u, u0, u0, v0, dt);
+        self.advect(size, 1, v, v0, u0, v0, dt); // self-advection along each velocity vector
         project(u, v, u0, v0);
     }
 }
@@ -60,4 +61,4 @@ Velocity.prototype.advect = Fluid_core.prototype.advect;
 Velocity.prototype.diffuse = Fluid_core.prototype.diffuse;
 Velocity.prototype.increase = Fluid_core.prototype.increase;
 Velocity.prototype.swap = Util.prototype.swap;
-Velocity.prototype.set_boundary = Util.prototype.set_boundary;
+Velocity.prototype.set_boundary = Fluid_core.prototype.set_boundary;

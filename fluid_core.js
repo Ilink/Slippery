@@ -8,6 +8,7 @@ var Fluid_core = function(){}
 
 // todo: create a strategy pattern for various boundary condition types
 Fluid_core.prototype.set_boundary = function(size, bound, matrix){
+//    console.log(size, bound, matrix);
     for (var i=1; i < size; i++ ) {
         matrix[0][i] = (bound==1) ? -matrix[1][i] : matrix[1][i];
         matrix[size-1][i] = bound==1 ? -matrix[size-1][i] : matrix[size-1][i];
@@ -16,9 +17,9 @@ Fluid_core.prototype.set_boundary = function(size, bound, matrix){
     }
     // corner cases (literally)
     matrix[0][0] = 0.5*(matrix[1][0] + matrix[0][1]);
-//    matrix[0][size-1] = 0.5*(matrix[i][size-1]+ matrix[0][size-1]);
-    matrix[size-1][0] = 0.5*(matrix[size-1][0]+matrix[size-1][1]);
-    matrix[size-1][size-1] = 0.5*(matrix[size-1][size-1]+matrix[size-1][size-1]);
+    matrix[0][size+1] = 0.5*(matrix[i][size+1]+ matrix[0][size]);
+//    matrix[size+1][0] = 0.5*(matrix[size][0]+matrix[size+1][1]);
+//    matrix[size+1][size+1] = 0.5*(matrix[size][size+1]+matrix[size+1][size]);
 }
 
 Fluid_core.prototype.infinite_boundary = function(size, bound, matrix){
@@ -38,8 +39,9 @@ Fluid_core.prototype.infinite_boundary = function(size, bound, matrix){
 Fluid_core.prototype.advect = function(size, bound, field, field0, u, v, dt){
     var i, j, i0, j0, i1, j1, x, y, s0, t0, s1, t1, dt0;
     dt0 = dt * size;
-    for (i=1; i < size; i++) {
-        for (j=1; j < size; j++) {
+    size -= 1;
+    for (i=1; i < size-1; i++) {
+        for (j=1; j < size-1; j++) {
             // find the new position for our particles
             x = i - dt0 * u[i][j];
             y = j - dt0 * v[i][j];
@@ -55,8 +57,11 @@ Fluid_core.prototype.advect = function(size, bound, field, field0, u, v, dt){
             t1 = y-j0; t0 = 1-t1;
 
             // carry over the values (densities, velocities)
-            field[i][j] = s0 * (t0*field0[i0][j0] + t1*field0[i0][j1])+
-                      s1 * (t0*field0[i1][j0] + t1*field0[i1][j1]);
+//            field[i1][j0] and field[i1][j1] are out of bounds
+
+            field[i][j] = s0 * (t0*field0[i0][j0] + t1*field0[i0][j1]) +
+                          s1 * (t0*field0[i1][j0] + t1*field0[i1][j1]);
+            if(isNaN(field0[i][j]))console.log(i0, j0, i1, j1);
         }
     }
     Fluid_core.prototype.set_boundary ( size, bound, field );
@@ -83,8 +88,9 @@ Fluid_core.prototype.increase = function(size, dens, new_dens, dt){
 Fluid_core.prototype.diffuse = function(size, bound, dens, dens0, rate, dt){
 //    var a = dt * rate * size;
     var a = dt * rate * size * size;
+//    var a = dt * 2 * size * size;
     for (var k = 0; k < 20; k++ ) {
-        for (var i = 1; i < size-1; i++ ) {
+        for (var i = 1; i <= size-1; i++ ) {
             for (var j = 1; j < size-1; j++ ) {
                 // i think it is using the previous density (d0) because this process is iterative (see outermost loop)
                 // could dens0 be part of the function instead of an argument?
