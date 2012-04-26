@@ -7,9 +7,9 @@ var Density = function(args){
     this.step = function(u, v, x, x0, diff, dt){
 //        self.increase(size, x, x0, dt);
         self.swap(x, x0);
-        self.diffuse(size, 1, x, x0, diff, dt);
+        self.diffuse(size, 0, x, x0, diff, dt);
         self.swap(x, x0);
-        self.advect(size, 1, x, x0, u, v, dt);
+        self.advect(size, 0, x, x0, u, v, dt);
 //        console.log(size, x, x0, u, v, dt);
 
     }

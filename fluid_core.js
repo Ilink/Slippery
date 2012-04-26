@@ -87,7 +87,7 @@ Fluid_core.prototype.increase = function(size, dens, new_dens, dt){
 
 Fluid_core.prototype.diffuse = function(size, bound, dens, dens0, rate, dt){
 //    var a = dt * rate * size;
-    var a = dt * rate * size * size;
+    var a = 5 * 1 * size;
 //    var a = dt * 2 * size * size;
     for (var k = 0; k < 20; k++ ) {
         for (var i = 1; i <= size-1; i++ ) {

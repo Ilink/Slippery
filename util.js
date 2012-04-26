@@ -72,7 +72,10 @@ Util.prototype.render_numbers = function(selector, arr){
     selector.empty();
     for(var i = 0; i < size; i++){
         for(var j = 0; j < size; j++){
-            selector.append(arr[i][j]);
+            var lightness = (arr[i][j] / 2) * 100 + "%";
+            var trunc = arr[i][j].toString().slice(0,8);
+//            $('<a>test</a>').appendTo(selector);
+            $("<span class='numbar' x='"+ i +"' y='"+ j +"' style='background-color:hsl(200,40%, "+lightness+");'>"+  + "</span>").appendTo(selector);
         }
         selector.append('<br/>')
     }

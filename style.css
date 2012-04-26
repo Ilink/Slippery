@@ -12,3 +12,9 @@
 #display_canvas{
     border:2px solid #b0c4de;
 }
+
+span.numbar {
+    width:100px;
+    display:inline-block;
+    height:22px;
+}
