@@ -1,4 +1,4 @@
-var size = 12;
+var size = 22;
 var N = size - 2;
 
 var util = new Util();
@@ -14,29 +14,27 @@ var test_diffuse = function(){
     fluid_core.diffuse(N, 0, mock_dens, mock_dens0, 2, 30);
     util.render_numbers("#container", mock_dens);
     mock_dens0 = util.copy(mock_dens);
+};
+
+var random_ui_input = function(size){
+    var rand_input = util.init_2d_arr(size, []);
+    var x = Math.floor(Math.random() * size);
+    var y = x;
+    rand_input[x][y] = 1.5;
+    return rand_input;
 }
 
 
 $(document).ready(function(){
-
-
-    $("#container").click(function(e){
-        console.log(e.pageX);
-        var new_dens = util.init_2d_arr(size, []);
-        var offset = $(this).offset();
-        var x = Math.round((e.pageX - offset.left) / 22);
-        var y = Math.round((e.pageY - offset.top) / 100);
-//        var x = $(this).attr('x'); var y = $(this).attr('y');
-        console.log(x, y, '10');
-        new_dens[x][y] = 15;
-        console.log(new_dens);
-        fluid_core.increase(N, mock_dens, new_dens, 30);
-    });
-//
+    var frames = 0;
     var timeline = new Timeline({
         tickrate: 10,
         callback: function(dt){ // render loop goes here
+            if(frames % 10 === 0) {
+                fluid_core.increase(N, mock_dens, random_ui_input(size), dt);
+            }
             test_diffuse();
+            frames++;
         }
     });
 //    test_diffuse();
