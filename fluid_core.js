@@ -11,15 +11,15 @@ Fluid_core.prototype.set_boundary = function(size, bound, matrix){
 //    console.log(size, bound, matrix);
     for (var i=1; i < size; i++ ) {
         matrix[0][i] = (bound==1) ? -matrix[1][i] : matrix[1][i];
-        matrix[size-1][i] = bound==1 ? -matrix[size-1][i] : matrix[size-1][i];
+        matrix[size+1][i] = bound==1 ? -matrix[size][i] : matrix[size][i];
         matrix[i][0] = bound==2 ? -matrix[i][1] : matrix[i][1];
-        matrix[i][size-1] = bound==2 ? -matrix[i][size-1] : matrix[i][size-1];
+        matrix[i][size+1] = bound==2 ? -matrix[i][size] : matrix[i][size];
     }
     // corner cases (literally)
     matrix[0][0] = 0.5*(matrix[1][0] + matrix[0][1]);
     matrix[0][size+1] = 0.5*(matrix[i][size+1]+ matrix[0][size]);
-//    matrix[size+1][0] = 0.5*(matrix[size][0]+matrix[size+1][1]);
-//    matrix[size+1][size+1] = 0.5*(matrix[size][size+1]+matrix[size+1][size]);
+    matrix[size+1][0] = 0.5*(matrix[size][0]+matrix[size+1][1]);
+    matrix[size+1][size+1] = 0.5*(matrix[size][size+1]+matrix[size+1][size]);
 }
 
 Fluid_core.prototype.infinite_boundary = function(size, bound, matrix){
@@ -91,7 +91,7 @@ Fluid_core.prototype.diffuse = function(size, bound, dens, dens0, rate, dt){
 //    var a = dt * 2 * size * size;
     for (var k = 0; k < 20; k++ ) {
         for (var i = 1; i <= size-1; i++ ) {
-            for (var j = 1; j < size-1; j++ ) {
+            for (var j = 1; j <= size-1; j++ ) {
                 // i think it is using the previous density (d0) because this process is iterative (see outermost loop)
                 // could dens0 be part of the function instead of an argument?
                 dens[i][j] = (dens0[i][j] + a * (dens[i-1][j] + dens[i+1][j] + dens[i][j-1] + dens[i][j+1])) / (1 + 4 * a);

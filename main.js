@@ -62,25 +62,16 @@ var render_numbers = function(selector, arr){
     }
 }
 
-var populate_array = function(arr, min, max){
-    for(var i = 0; i < arr.length; i++){
-        for(var j = 0; j < arr[i].length; j++){
-            arr[i][j] = Math.floor(Math.random() * max) + min
-        }
-    }
-}
+var util = new Util;
 
 $(document).ready(function(){
 
     var size = 10;
-    var mock_dens = [];
-    mock_dens = Util.prototype.init_2d_arr(size+2, mock_dens);
+    var mock_dens = util.init_2d_arr(size+2, []);
     mock_dens[0][5] = 5;
 
-    var mock_u = [];
-    var mock_v = [];
-    mock_u = Util.prototype.init_2d_arr(size+2, mock_u);
-    mock_v = Util.prototype.init_2d_arr(size+2, mock_v);
+    var mock_u = util.init_2d_arr(size+2, [])
+    var mock_v = util.init_2d_arr(size+2, [])
 
     var screen_width = $(window).width();
     var screen_height = $(window).height();
@@ -113,20 +104,20 @@ $(document).ready(function(){
     var timeline = new Timeline({
         tickrate: 10,
         callback: function(dt){ // render loop goes here
-            populate_array(mock_u, 0, 3);
-            populate_array(mock_v, 0, 3);
-            populate_array(mock_dens, 0, 5);
+            util.populate_2d_array(mock_u, 0, 3);
+            util.populate_2d_array(mock_v, 0, 3);
+            util.populate_2d_array(mock_dens, 0, 5);
 
             fluid.add_density(mock_dens);
             fluid.add_velocity(mock_u, mock_v);
             fluid.tick(dt);
-//            render_numbers("#container", fluid.get_dens());
+            render_numbers("#container", fluid.get_dens());
         }
     });
 
     $("#start").click(function(){
         timeline.start();
-        timeline.stop();
+//        timeline.stop();
     });
 
     $("#stop").click(function(){

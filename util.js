@@ -51,3 +51,29 @@ Util.prototype.copy = function(original){
     if(typeof original.length !== 'undefined') return $.extend(true, [], original);
     else return $.extend(true, {}, original);
 }
+
+Util.prototype.populate_2d_array = function(arr, min, max, sparse){
+    for(var i = 0; i < arr.length; i++){
+        for(var j = 0; j < arr[i].length; j++){
+            if(sparse){
+                var rand = Math.floor(Math.random() * 10);
+                if(rand < 5) arr[i][j] = Math.floor(Math.random() * max) + min;
+            }
+            else {
+                arr[i][j] = Math.floor(Math.random() * max) + min
+            }
+        }
+    }
+}
+
+Util.prototype.render_numbers = function(selector, arr){
+    var size = arr.length;
+    selector = $(selector);
+    selector.empty();
+    for(var i = 0; i < size; i++){
+        for(var j = 0; j < size; j++){
+            selector.append(arr[i][j]);
+        }
+        selector.append('<br/>')
+    }
+}
