@@ -15,7 +15,6 @@ var Velocity = function(args){
 
     var project = function(u, v, p, div){
         var i, j, k, h
-        size = size-2;
         h = 1.0 / size;
         for ( i=1 ; i<=size ; i++ ) {
             for ( j=1 ; j<=size ; j++ ) {
@@ -46,8 +45,8 @@ var Velocity = function(args){
 
     // draw out these steps, with the swaps
     this.step = function(u, v, u0, v0, visc, dt){
-        self.increase(size, u, u0, dt);
-        self.increase(size, v, v0, dt);
+//        self.increase(size, u, u0, dt);
+//        self.increase(size, v, v0, dt);
         self.swap(u, u0); self.diffuse(size, 1, u, u0, visc, dt);
         self.swap(v, v0); self.diffuse(size, 2, v, v0, visc, dt);
         project(u, v, u0, v0);

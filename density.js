@@ -10,8 +10,6 @@ var Density = function(args){
         self.diffuse(size, 0, x, x0, diff, dt);
         self.swap(x, x0);
         self.advect(size, 0, x, x0, u, v, dt);
-//        console.log(size, x, x0, u, v, dt);
-
     }
 }
 

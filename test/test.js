@@ -18,9 +18,12 @@ var test_diffuse = function(){
 
 var random_ui_input = function(size){
     var rand_input = util.init_2d_arr(size, []);
-    var x = Math.floor(Math.random() * size);
-    var y = x;
-    rand_input[x][y] = 1.5;
+    for(var i =0; i < 10; i ++){
+        var x = Math.floor(Math.random() * size);
+        var y = Math.floor(Math.random() * size);
+        rand_input[x][y] = 2;
+    }
+
     return rand_input;
 }
 

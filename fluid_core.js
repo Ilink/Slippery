@@ -40,8 +40,8 @@ Fluid_core.prototype.advect = function(size, bound, field, field0, u, v, dt){
     var i, j, i0, j0, i1, j1, x, y, s0, t0, s1, t1, dt0;
     dt0 = dt * size;
     size -= 1;
-    for (i=1; i < size-1; i++) {
-        for (j=1; j < size-1; j++) {
+    for (i=1; i <= size; i++) {
+        for (j=1; j <= size; j++) {
             // find the new position for our particles
             x = i - dt0 * u[i][j];
             y = j - dt0 * v[i][j];
@@ -66,15 +66,6 @@ Fluid_core.prototype.advect = function(size, bound, field, field0, u, v, dt){
     }
     Fluid_core.prototype.set_boundary ( size, bound, field );
 }
-
-//Fluid_core.prototype.increase = function(size, dens, new_dens, dt){
-//    for (var i = 0 ; i < size; i++) {
-//        for(var j = 0; j < size; j++){
-//            dens[i][j] += dt * new_dens[i][j]; // why does this need to be scaled by time?
-//            // i guess it doesn't, but it makes it more representative of how much density was added over a time period
-//        }
-//    }
-//}
 
 Fluid_core.prototype.increase = function(size, dens, new_dens, dt){
 //    size = (size + 2) * (size +2);

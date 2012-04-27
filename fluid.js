@@ -1,17 +1,17 @@
 var Fluid = function(args){
     var self = this;
-    var size, dim, dens, dens0, u, v, u0, v0, visc, diff;
+    var total_size, inner_size, dim, dens, dens0, u, v, u0, v0, visc, diff;
     dens = [], dens0 = [], u = [], v = [], v0 = [], u0 = [];
     diff = 2;
     visc = 2;
     dim = (args.size + 2) * (args.size + 2);
-    var N = args.size;
-    size = args.size + 2;
+    inner_size = args.size;
+    total_size = inner_size + 2;
 
     visc = 1;
 
-    var velocity = new Velocity({size: N});
-    var density = new Density({size: N});
+    var velocity = new Velocity({size: inner_size});
+    var density = new Density({size: inner_size});
 
     var solve = function(dens0, u0, v0, dt){
         velocity.step(u, v, u0, v0, visc, dt);
@@ -27,22 +27,22 @@ var Fluid = function(args){
     }
 
     this.reset = function(){
-        this.init_2d_arr(size, dens);
-        this.init_2d_arr(size, dens0);
-        this.init_2d_arr(size, u);
-        this.init_2d_arr(size, u0);
-        this.init_2d_arr(size, v);
-        this.init_2d_arr(size, v0);
+        this.init_2d_arr(total_size, dens);
+        this.init_2d_arr(total_size, dens0);
+        this.init_2d_arr(total_size, u);
+        this.init_2d_arr(total_size, u0);
+        this.init_2d_arr(total_size, v);
+        this.init_2d_arr(total_size, v0);
     }
     this.reset();
 
     this.add_density = function(new_dens, dt){
-        self.increase(N, dens, new_dens, dt);
+        self.increase(inner_size, dens, new_dens, dt);
     }
 
     this.add_velocity = function(new_u, new_v){
-        for(var i = 0; i < size; i++){
-            for(var j = 0; j < size; j++){
+        for(var i = 0; i < inner_size; i++){
+            for(var j = 0; j < inner_size; j++){
                 u[i][j] += new_u[i][j];
                 v[i][j] += new_v[i][j];
             }
