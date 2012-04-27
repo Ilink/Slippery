@@ -24,6 +24,10 @@ var random_ui_input = function(size){
     return rand_input;
 }
 
+var fluid = new Fluid({
+    "size": size
+});
+fluid.add_density(mock_dens, 30);
 
 $(document).ready(function(){
     var frames = 0;
@@ -31,9 +35,12 @@ $(document).ready(function(){
         tickrate: 10,
         callback: function(dt){ // render loop goes here
             if(frames % 10 === 0) {
-                fluid_core.increase(N, mock_dens, random_ui_input(size), dt);
+//                fluid_core.increase(N, mock_dens, random_ui_input(N), dt);
+                var input = random_ui_input(size);
+                fluid.add_density(input, dt);
             }
-            test_diffuse();
+            util.render_numbers("#container", fluid.tick(dt));
+//            test_diffuse();
             frames++;
         }
     });
