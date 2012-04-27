@@ -21,7 +21,7 @@ var random_ui_input = function(size){
     for(var i =0; i < 10; i ++){
         var x = Math.floor(Math.random() * size);
         var y = Math.floor(Math.random() * size);
-        rand_input[x][y] = 2;
+        rand_input[x][y] = 50;
     }
 
     return rand_input;
@@ -40,7 +40,10 @@ $(document).ready(function(){
             if(frames % 10 === 0) {
 //                fluid_core.increase(N, mock_dens, random_ui_input(N), dt);
                 var input = random_ui_input(size);
+                var input_u = random_ui_input(size);
+                var input_v = random_ui_input(size);
                 fluid.add_density(input, dt);
+                fluid.add_velocity(input_u, input_v, dt);
             }
             util.render_numbers("#container", fluid.tick(dt));
 //            test_diffuse();

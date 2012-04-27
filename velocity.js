@@ -28,7 +28,7 @@ var Velocity = function(args){
         for ( k=0; k<20; k++ ) {
             for ( i=1; i<=size; i++ ) {
                 for ( j=1; j<=size; j++ ) {
-                    p[i][j] = (div[i][j] + p[i-1][j] + p[i+1][j] + p[i][j]-[1] + p[i][j+1]) / 4;
+                    p[i][j] = (div[i][j] + p[i-1][j] + p[i+1][j] + p[i][j-1] + p[i][j+1]) / 4;
                 }
             }
             self.set_boundary ( size, 0, p );

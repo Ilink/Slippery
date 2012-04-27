@@ -40,11 +40,11 @@ var Fluid = function(args){
         self.increase(inner_size, dens, new_dens, dt);
     }
 
-    this.add_velocity = function(new_u, new_v){
+    this.add_velocity = function(new_u, new_v, dt){
         for(var i = 0; i < inner_size; i++){
             for(var j = 0; j < inner_size; j++){
-                u[i][j] += new_u[i][j];
-                v[i][j] += new_v[i][j];
+                u[i][j] += dt * new_u[i][j];
+                v[i][j] += dt * new_v[i][j];
             }
         }
         // idk, add velocity to u and v here
